@@ -15,14 +15,34 @@ const Body = () => {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    const data = await fetch("https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0185905&lng=72.831977&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-
-    const json = await data.json();
-    const restaurants = json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-    setListOfRestaurant(restaurants);
-    setFilteredRestaurant(restaurants);
-    console.log(restaurants);
+    const fetchData = async () => {
+      try {
+          const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0185905&lng=72.831977&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING')}`);
+          
+          if (!response.ok) {
+              throw new Error('Network response was not ok.');
+          }
+          
+          const data = await response.json(); // Convert outer response to JSON
+          const jsonData = JSON.parse(data.contents); // Parse `data.contents` into JSON
+          
+          console.log(jsonData); // Now jsonData is an actual JSON object
+  
+          // Accessing the required restaurant data
+          const restaurants = jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+  
+          setListOfRestaurant(restaurants);
+          setFilteredRestaurant(restaurants);
+          console.log(restaurants);
+  
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+    //const json = await data.json();
+   // const restaurants = jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+   // setListOfRestaurant(restaurants);
+   /// setFilteredRestaurant(restaurants);
+  //  console.log(restaurants);
   };
 
   const handleSearch = () => {
@@ -47,7 +67,7 @@ const Body = () => {
     )
 
   return filteredRestaurant.length === 0 && listOfRestaurants.length===0 ? (
-    <Shimmer />
+    <Shimmer/>
   ) : (
     <div className="border-2">
       <div className="w-3/4 flex justify-center ml-52 mt-1">

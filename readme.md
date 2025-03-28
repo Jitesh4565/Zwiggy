@@ -1,0 +1,2 @@
+https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0185905&lng=72.831977&restaurantId=156811
+https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0185905&lng=72.831977&restaurantId=613919

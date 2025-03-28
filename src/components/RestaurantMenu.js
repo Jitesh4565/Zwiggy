@@ -9,7 +9,7 @@ import RestaurantCategory from "./RestaurantCategory";
     const [showIndex,setShowIndex]=useState(0); 
 
     const resInfo=useRestaurnatMenu(resId);
-     if(resInfo===null) return  <Shimmer/>;
+     if(resInfo===null) return <Shimmer/>;
      const{name,cuisines,costForTwoMessage}=resInfo?.cards[2]?.card?.card?.info;
 
      const Menu=resInfo.cards[4].groupedCard.cardGroupMap.REGULAR.cards;      //  //cards[2].card.card;
